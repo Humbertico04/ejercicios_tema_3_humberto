@@ -107,3 +107,14 @@ class Polinomio(object):
             if (total != 0):
                 Polinomio.agregar_termino(paux, i, total)
         return paux
+    
+    def dividir(polinomio1, polinomio2):
+        """Divide dos polinomios y devuelve el resultado"""
+        paux = Polinomio()
+        pol1 = polinomio1.termino_mayor
+        while (pol1 is not None):
+            termino = pol1.info.termino - polinomio2.grado
+            valor = pol1.info.valor / polinomio2.termino_mayor.info.valor
+            Polinomio.agregar_termino(paux, termino, valor)
+            pol1 = pol1.sig
+        return paux
