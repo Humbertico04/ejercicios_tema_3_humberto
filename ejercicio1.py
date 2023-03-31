@@ -45,3 +45,26 @@ def torres_hanoi(n, origen, destino, auxiliar):
         torres_hanoi(n-1, origen, auxiliar, destino)
         Torre.mover_disco(origen, destino)
         torres_hanoi(n-1, auxiliar, destino, origen)
+
+def main(n):
+    origen = Torre()
+    destino = Torre()
+    auxiliar = Torre()
+
+    # Apilando discos en la torre de origen
+    for i in range(n, 0, -1):
+        print("Se ha movido el disco", i)
+        disco = Disco(i)
+        origen.apilar(disco)
+
+
+    # Resolviendo la Torre de Hanoi
+    torres_hanoi(origen.obtener_altura(), origen, destino, auxiliar)
+
+
+    # Imprimiendo el resultado final
+    print("Torre de origen: ", origen.obtener_altura())
+    print("Torre auxiliar: ", auxiliar.obtener_altura())
+    print("Torre de destino: ", destino.obtener_altura())
+
+    return destino
