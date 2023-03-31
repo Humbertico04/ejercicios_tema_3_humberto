@@ -8,3 +8,32 @@ class Disco:
     def __init__(self, tamaño):
         self.tamaño = tamaño
         self.siguiente = None
+
+class Torre:
+    def __init__(self):
+        self.top = None
+        self.altura = 0
+
+    def apilar(self, disco):
+        disco.siguiente = self.top
+        self.top = disco
+        self.altura += 1
+
+    def desapilar(self):
+        if self.top is None:
+            return None
+
+        disco = self.top
+        self.top = disco.siguiente
+        self.altura -= 1
+        return disco
+
+    def obtener_top(self):
+        return self.top
+
+    def obtener_altura(self):
+        return self.altura
+
+    def mover_disco(origen, destino):
+        disco = origen.desapilar()
+        destino.apilar(disco)
