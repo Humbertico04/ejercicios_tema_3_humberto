@@ -9,7 +9,7 @@
 # listar todas las naves que pueden llevar seis o más pasajeros;
 # mostrar toda la información de la nave más pequeña y la más grande.
 
-import csv, helpers
+import csv
 
 class Nave:
     def __init__(self, nombre, largo, tripulacion, pasajeros):
@@ -27,29 +27,28 @@ class Naves:
         reader = csv.reader(fichero, delimiter=',')
         next(reader) # Salta la primera línea
         for nombre, largo, tripulacion, pasajeros in reader:
-            naves = Nave(nombre, largo, tripulacion, pasajeros)
-            print(naves)
+            naves = Nave(nombre.capitalize(), largo, tripulacion, pasajeros)
             lista.append(naves)
 
     @staticmethod
-    def mergesort(lista_naves):
+    def mergesort(lista_naves, attr):
         if len(lista_naves) <= 1:
             return lista_naves
         else:
             medio = len(lista_naves) // 2
-            izquierda = Naves.mergesort(lista_naves[:medio])
-            derecha = Naves.mergesort(lista_naves[medio:])
-            return Naves.merge(izquierda, derecha)
+            izquierda = Naves.mergesort(lista_naves[:medio], attr)
+            derecha = Naves.mergesort(lista_naves[medio:], attr)
+            return Naves.merge(izquierda, derecha, attr)
 
     @staticmethod
-    def merge(izquierda, derecha):
+    def merge(izquierda, derecha, attr):
         lista_mezclada = []
         i, j = 0, 0
         while i < len(izquierda) and j < len(derecha):
             nave1 = izquierda[i]
             nave2 = derecha[j]
 
-            if nave1.nombre < nave2.nombre or (nave1.nombre == nave2.nombre and nave1.largo > nave2.largo):
+            if getattr(nave1, attr) < getattr(nave2, attr):
                 lista_mezclada.append(nave1)
                 i += 1
             else:
@@ -61,6 +60,23 @@ class Naves:
         return lista_mezclada
 
 naves = Naves.lista
+naves_ordenadas_nombre = Naves.mergesort(naves, "nombre")
+naves_ordenadas_largo = Naves.mergesort(naves, "largo")
+naves_ordenadas_tripulacion = Naves.mergesort(naves, "tripulacion")
+naves_ordenadas_pasajeros = Naves.mergesort(naves_ordenadas_nombre, "pasajeros")
 
-for nave in naves:
+print("Ordenadas por nombre:")
+for nave in naves_ordenadas_nombre:
+    print(nave)
+
+print("\nOrdenadas por largo:")
+for nave in naves_ordenadas_largo:
+    print(nave)
+
+print("\nOrdenadas por tripulación:")
+for nave in naves_ordenadas_tripulacion:
+    print(nave)
+
+print("\nOrdenadas por pasajeros:")
+for nave in naves_ordenadas_pasajeros:
     print(nave)
