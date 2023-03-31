@@ -18,3 +18,25 @@ class Matriz:
 
     def __str__(self):
         return str(self.matriz)
+
+def sarrus_iterativo(matriz):
+    if matriz.filas != matriz.columnas or matriz.filas != 3:
+        raise ValueError("La matriz debe ser cuadrada de 3x3")
+
+    resultado = 0
+    for i in range(matriz.columnas):
+        diagonal_principal = 1
+        diagonal_secundaria = 1
+        for j in range(matriz.filas):
+            diagonal_principal *= matriz.obtener_elemento(j, (i + j) % matriz.columnas)
+            diagonal_secundaria *= matriz.obtener_elemento(j, (i - j) % matriz.columnas)
+        resultado += diagonal_principal - diagonal_secundaria
+
+    return resultado
+
+matriz = Matriz(3, 3, [[1, 0, 0], [0, 10, 0], [0, 0, 1]])
+
+print("Matriz:")
+print(matriz)
+
+print("Determinante iterativo:", sarrus_iterativo(matriz))
