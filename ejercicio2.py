@@ -48,10 +48,14 @@ def sarrus_iterativo(matriz):
 
     return resultado
 
-matriz = Matriz(3, 3, [[1, 0, -3], [7, 10, 0], [-1, -11, 1]])
+def main():
+    matriz = Matriz(3, 3, [[1, 0, -3], [7, 10, 0], [-1, -11, 1]])
 
-print("Matriz:")
-print(matriz)
+    print("Matriz:")
+    print(matriz)
 
-print("Determinante recursivo:", sarrus_recursivo(matriz))
-print("Determinante iterativo:", sarrus_iterativo(matriz))
+    print("Determinante recursivo:", sarrus_recursivo(matriz))
+    print("Determinante iterativo:", sarrus_iterativo(matriz))
+
+if __name__ == "__main__":
+    main()
