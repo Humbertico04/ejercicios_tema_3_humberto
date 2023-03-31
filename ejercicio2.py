@@ -19,6 +19,20 @@ class Matriz:
     def __str__(self):
         return str(self.matriz)
 
+def sarrus_recursivo(matriz, suma=True, fila=0, columna=0, nivel=0):
+    if matriz.filas != 3 or matriz.columnas != 3:
+        raise ValueError("La matriz debe ser cuadrada de 3x3")
+    if nivel == 2:
+        return matriz.obtener_elemento(0, columna % 3) * matriz.obtener_elemento(1, (columna + 1) % 3) * matriz.obtener_elemento(2, (columna + 2) % 3) - matriz.obtener_elemento(0, (columna + 2) % 3) * matriz.obtener_elemento(1, (columna + 1) % 3) * matriz.obtener_elemento(2, columna % 3)
+    resultado = 0
+    for i in range(3):
+        if suma:
+            resultado += sarrus_recursivo(matriz, suma, fila + nivel, columna + i, nivel + 1)
+        else:
+            resultado -= sarrus_recursivo(matriz, suma, fila + nivel, columna + i, nivel + 1)
+        suma = not suma
+    return resultado
+
 def sarrus_iterativo(matriz):
     if matriz.filas != matriz.columnas or matriz.filas != 3:
         raise ValueError("La matriz debe ser cuadrada de 3x3")
@@ -34,9 +48,10 @@ def sarrus_iterativo(matriz):
 
     return resultado
 
-matriz = Matriz(3, 3, [[1, 0, 0], [0, 10, 0], [0, 0, 1]])
+matriz = Matriz(3, 3, [[1, 0, -3], [7, 10, 0], [-1, -11, 1]])
 
 print("Matriz:")
 print(matriz)
 
+print("Determinante recursivo:", sarrus_recursivo(matriz))
 print("Determinante iterativo:", sarrus_iterativo(matriz))
