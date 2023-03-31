@@ -118,3 +118,19 @@ class Polinomio(object):
             Polinomio.agregar_termino(paux, termino, valor)
             pol1 = pol1.sig
         return paux
+    
+    def eliminar_termino(polinomio, termino):
+        """Elimina un termino del polinomio"""
+        aux = polinomio.termino_mayor
+        if aux is not None:
+            if aux.info.termino == termino:
+                polinomio.termino_mayor = aux.sig
+                aux.sig = None
+                aux = None
+            else:
+                while aux.sig is not None and aux.sig.info.termino != termino:
+                    aux = aux.sig
+                if aux.sig is not None:
+                    to_remove = aux.sig
+                    aux.sig = aux.sig.sig
+                    to_remove.sig = None
