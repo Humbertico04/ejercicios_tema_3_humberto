@@ -14,16 +14,12 @@ A-wing,9.6,1.0,0.0
 B-wing,16.9,1.0,0.0
 Republic Cruiser,115,9.0,16.0
 Naboo fighter,11,1.0,0.0
-Naboo Royal Starship,76,8.0,
 Scimitar,26.5,1.0,6.0
 J-type diplomatic barge,39,5.0,10.0
-AA-9 Coruscant freighter,390,,30000.0
 Jedi starfighter,8,1.0,0.0
-H-type Nubian yacht,47.9,4.0,
 Star Destroyer,1600,47060.0,0.0
 Trade Federation cruiser,1088,600.0,48247.0
 Theta-class T-2c shuttle,18.5,5.0,16.0
-T-70 X-wing fighter,,1.0,
 Rebel transport,90,6.0,90.0
 Droid control ship,3170,175.0,139000.0
 Republic Assault ship,752,700.0,16000.0
@@ -35,7 +31,6 @@ arc-170,14.5,3.0,0.0
 Belbullab-22 starfighter,6.71,1.0,0.0
 V-wing,7.9,1.0,0.0
 CR90 corvette,150,165.0,600.0
-Banking clan frigate,825,200.0,
 Sand Crawler,36.8,46.0,30.0
 T-16 skyhopper,10.4,1.0,1.0
 X-34 landspeeder,3.4,1.0,1.0
@@ -62,7 +57,6 @@ XJ-6 airspeeder,6.23,1.0,1.0
 LAAT/i,17.4,6.0,30.0
 LAAT/c,28.82,1.0,0.0
 Tsmeu-6 personal wheel bike,3.5,1.0,1.0
-Emergency Firespeeder,,2.0,
 Droid tri-fighter,5.4,1.0,0.0
 Oevvaor jet catamaran,15.1,2.0,2.0
 Raddaugh Gnasp fluttercraft,7.0,2.0,0.0
