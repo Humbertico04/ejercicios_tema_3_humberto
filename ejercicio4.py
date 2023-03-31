@@ -97,3 +97,13 @@ class Polinomio(object):
                 pol2 = pol2.sig
             pol1 = pol1.sig
         return paux
+    
+    def restar(polinomio1, polinomio2):
+        """Resta dos polinomios y devuelve el resultado"""
+        paux = Polinomio()
+        mayor = polinomio1 if (polinomio1.grado > polinomio2.grado) else polinomio2
+        for i in range(0, mayor.grado+1):
+            total = Polinomio.obtener_valor(polinomio1, i) - Polinomio.obtener_valor(polinomio2, i)
+            if (total != 0):
+                Polinomio.agregar_termino(paux, i, total)
+        return paux
