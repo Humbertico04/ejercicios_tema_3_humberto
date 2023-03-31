@@ -68,3 +68,6 @@ def main(n):
     print("Torre de destino: ", destino.obtener_altura())
 
     return destino
+
+if __name__ == "__main__":
+    main(15)
