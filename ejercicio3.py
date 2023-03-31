@@ -9,18 +9,12 @@
 # listar todas las naves que pueden llevar seis o más pasajeros;
 # mostrar toda la información de la nave más pequeña y la más grande.
 
-import pandas as pd
+class Nave:
+    def __init__(self, nombre, largo, tripulacion, pasajeros):
+        self.nombre = nombre
+        self.largo = float(largo)
+        self.tripulacion = int(tripulacion)
+        self.pasajeros = int(pasajeros)
 
-# importar el archivo csv
-df = pd.read_csv('starships.csv')
-df2 = pd.read_csv('vehicles.csv')
-
-# filtramos los datos que nos interesan
-df = df[['name', 'length', 'crew', 'passengers']]
-df2 = df2[['name', 'length', 'crew', 'passengers']]
-
-# unimos los dos dataframes
-df = df.append(df2, ignore_index=True)
-
-# guardamos el dataframe en un archivo csv
-df.to_csv('naves.csv', index=False)
+    def __str__(self):
+        return f"{self.nombre} (Largo: {self.largo}, Tripulación: {self.tripulacion}, Pasajeros: {self.pasajeros})"
