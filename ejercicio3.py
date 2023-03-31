@@ -84,7 +84,20 @@ class Naves:
             if filtro in nave.nombre:
                 lista_filtrada.append(nave)
         return lista_filtrada
-
+    
+    @staticmethod
+    def minimos(lista_naves, min, categoria):
+        if categoria == "nombre":
+            return "No se puede filtrar por minimo en nombre"
+        lista_naves = Naves.mergesort(lista_naves, categoria)
+        i = 0
+        for nave in lista_naves:
+            if getattr(nave, categoria) >= min:
+                # crear una sublista con los elementos desde el minimo hasta el final
+                return lista_naves[i:]
+            i += 1
+    
+        
 
 naves = Naves.lista
 naves_ordenadas_nombre = Naves.mergesort(naves, "nombre")
@@ -117,3 +130,6 @@ Naves.mostrar_naves(Naves.mayores(naves, 1, "tripulacion"))
 
 print("\nNaves que comienzan con AT:")
 Naves.mostrar_naves(Naves.filtro(naves, "AT"))
+
+print("\nNaves que pueden llevar seis o más pasajeros:")
+Naves.mostrar_naves(Naves.minimos(naves, 6, "pasajeros"))
