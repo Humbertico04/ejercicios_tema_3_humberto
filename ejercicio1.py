@@ -37,3 +37,11 @@ class Torre:
     def mover_disco(origen, destino):
         disco = origen.desapilar()
         destino.apilar(disco)
+
+def torres_hanoi(n, origen, destino, auxiliar):
+    if n == 1:
+        Torre.mover_disco(origen, destino)
+    else:
+        torres_hanoi(n-1, origen, auxiliar, destino)
+        Torre.mover_disco(origen, destino)
+        torres_hanoi(n-1, auxiliar, destino, origen)
