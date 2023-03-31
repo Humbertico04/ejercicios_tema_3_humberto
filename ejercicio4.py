@@ -144,3 +144,59 @@ class Polinomio(object):
             return True
         else:
             return False
+
+# PRUEBAS
+import unittest 
+class TestPolinomio(unittest.TestCase):
+    def setUp(self):
+        self.polinomio1 = Polinomio()
+        self.polinomio2 = Polinomio()
+        Polinomio.agregar_termino(self.polinomio1, 3, 5)
+        Polinomio.agregar_termino(self.polinomio1, 2, 4)
+        Polinomio.agregar_termino(self.polinomio1, 1, 3)
+        Polinomio.agregar_termino(self.polinomio1, 0, 2)
+        Polinomio.agregar_termino(self.polinomio2, 2, 3)
+        Polinomio.agregar_termino(self.polinomio2, 1, 2)
+        Polinomio.agregar_termino(self.polinomio2, 0, 1)
+
+    def test_agregar_termino(self):
+        self.assertEqual(Polinomio.mostrar(self.polinomio1), "+5x^3+4x^2+3x^1+2x^0")
+        self.assertEqual(Polinomio.mostrar(self.polinomio2), "+3x^2+2x^1+1x^0")
+
+    def test_modificar_termino(self):
+        Polinomio.modificar_termino(self.polinomio1, 2, 6)
+        self.assertEqual(Polinomio.mostrar(self.polinomio1), "+5x^3+6x^2+3x^1+2x^0")
+
+    def test_obtener_valor(self):
+        self.assertEqual(Polinomio.obtener_valor(self.polinomio1, 2), 4)
+        self.assertEqual(Polinomio.obtener_valor(self.polinomio1, 1), 3)
+        self.assertEqual(Polinomio.obtener_valor(self.polinomio1, 0), 2)
+        self.assertEqual(Polinomio.obtener_valor(self.polinomio1, 3), 5)
+
+    def test_sumar(self):
+        self.assertEqual(Polinomio.mostrar(Polinomio.sumar(self.polinomio1, self.polinomio2)), "+5x^3+7x^2+5x^1+3x^0")
+
+    def test_multiplicar(self):
+        self.assertEqual(Polinomio.mostrar(Polinomio.multiplicar(self.polinomio1, self.polinomio2)), "+15x^5+22x^4+22x^3+16x^2+7x^1+2x^0")
+
+    def test_dividir(self):
+        polinomio3 = Polinomio()
+        Polinomio.agregar_termino(polinomio3, 1, 5)
+        Polinomio.agregar_termino(polinomio3, 0, 2)
+        self.assertEqual(Polinomio.mostrar(Polinomio.dividir(self.polinomio1, polinomio3)), "+1.0x^2+0.8x^1+0.6x^0+0.4x^-1")
+
+    def test_restar(self):
+        self.assertEqual(Polinomio.mostrar(Polinomio.restar(self.polinomio1, self.polinomio2)), "+5x^3+1x^2+1x^1+1x^0")
+    
+    def test_eliminar_termino(self):
+        Polinomio.eliminar_termino(self.polinomio1, 2)
+        self.assertEqual(Polinomio.mostrar(self.polinomio1), "+5x^3+3x^1+2x^0")
+    
+    def test_existe_termino(self):
+        self.assertEqual(Polinomio.existe_termino(self.polinomio1, 2), True)
+        self.assertEqual(Polinomio.existe_termino(self.polinomio1, 1), True)
+        self.assertEqual(Polinomio.existe_termino(self.polinomio1, 0), True)
+        self.assertEqual(Polinomio.existe_termino(self.polinomio1, 5), False)
+
+if __name__ == '__main__':
+    unittest.main()
