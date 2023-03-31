@@ -27,28 +27,29 @@ class Naves:
         reader = csv.reader(fichero, delimiter=',')
         next(reader) # Salta la primera línea
         for nombre, largo, tripulacion, pasajeros in reader:
-            naves = Nave(nombre.capitalize(), largo, tripulacion, pasajeros)
+            nombre=nombre[0].capitalize() + nombre[1:]
+            naves = Nave(nombre, largo, tripulacion, pasajeros)
             lista.append(naves)
 
     @staticmethod
-    def mergesort(lista_naves, attr):
+    def mergesort(lista_naves, categoria):
         if len(lista_naves) <= 1:
             return lista_naves
         else:
             medio = len(lista_naves) // 2
-            izquierda = Naves.mergesort(lista_naves[:medio], attr)
-            derecha = Naves.mergesort(lista_naves[medio:], attr)
-            return Naves.merge(izquierda, derecha, attr)
+            izquierda = Naves.mergesort(lista_naves[:medio], categoria)
+            derecha = Naves.mergesort(lista_naves[medio:], categoria)
+            return Naves.merge(izquierda, derecha, categoria)
 
     @staticmethod
-    def merge(izquierda, derecha, attr):
+    def merge(izquierda, derecha, categoria):
         lista_mezclada = []
         i, j = 0, 0
         while i < len(izquierda) and j < len(derecha):
             nave1 = izquierda[i]
             nave2 = derecha[j]
 
-            if getattr(nave1, attr) < getattr(nave2, attr):
+            if getattr(nave1, categoria) < getattr(nave2, categoria):
                 lista_mezclada.append(nave1)
                 i += 1
             else:
@@ -58,25 +59,61 @@ class Naves:
         lista_mezclada += izquierda[i:]
         lista_mezclada += derecha[j:]
         return lista_mezclada
+    
+    @staticmethod
+    def mostrar_naves(lista_naves):
+        for nave in lista_naves:
+            print(nave)
+    
+    @staticmethod
+    def mostrar_nave(nombre):
+        for nave in Naves.lista:
+            if nave.nombre == nombre:
+                print(nave)
+
+    @staticmethod
+    def mayores(lista_naves, cantidad, categoria):
+        lista_naves = Naves.mergesort(lista_naves, categoria)
+        lista_naves.reverse()
+        return lista_naves[:cantidad]
+    
+    @staticmethod
+    def filtro(lista_naves, filtro):
+        lista_filtrada = []
+        for nave in lista_naves:
+            if filtro in nave.nombre:
+                lista_filtrada.append(nave)
+        return lista_filtrada
+
 
 naves = Naves.lista
 naves_ordenadas_nombre = Naves.mergesort(naves, "nombre")
-naves_ordenadas_largo = Naves.mergesort(naves, "largo")
-naves_ordenadas_tripulacion = Naves.mergesort(naves, "tripulacion")
+naves_ordenadas_largo = Naves.mergesort(naves_ordenadas_nombre, "largo")
+naves_ordenadas_tripulacion = Naves.mergesort(naves_ordenadas_nombre, "tripulacion")
 naves_ordenadas_pasajeros = Naves.mergesort(naves_ordenadas_nombre, "pasajeros")
 
 print("Ordenadas por nombre:")
-for nave in naves_ordenadas_nombre:
-    print(nave)
+Naves.mostrar_naves(naves_ordenadas_nombre)
 
 print("\nOrdenadas por largo:")
-for nave in naves_ordenadas_largo:
-    print(nave)
+Naves.mostrar_naves(naves_ordenadas_largo)
 
 print("\nOrdenadas por tripulación:")
-for nave in naves_ordenadas_tripulacion:
-    print(nave)
+Naves.mostrar_naves(naves_ordenadas_tripulacion)
+
 
 print("\nOrdenadas por pasajeros:")
-for nave in naves_ordenadas_pasajeros:
-    print(nave)
+Naves.mostrar_naves(naves_ordenadas_pasajeros)
+
+print("\nInformación del Halcón Milenario y la Estrella de la Muerte:")
+Naves.mostrar_nave("Millennium Falcon")
+Naves.mostrar_nave("Death Star")
+
+print("\nLas cinco naves con mayor cantidad de pasajeros:")
+Naves.mostrar_naves(Naves.mayores(naves, 5, "pasajeros"))
+
+print("\nLa nave que requiere mayor cantidad de tripulación:")
+Naves.mostrar_naves(Naves.mayores(naves, 1, "tripulacion"))
+
+print("\nNaves que comienzan con AT:")
+Naves.mostrar_naves(Naves.filtro(naves, "AT"))
