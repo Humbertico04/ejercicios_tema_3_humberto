@@ -81,10 +81,10 @@ class Naves:
     def filtro(lista_naves, filtro):
         lista_filtrada = []
         for nave in lista_naves:
-            if filtro in nave.nombre:
+            if nave.nombre.startswith(filtro):
                 lista_filtrada.append(nave)
         return lista_filtrada
-    
+
     @staticmethod
     def minimos(lista_naves, min, categoria):
         if categoria == "nombre":
@@ -96,40 +96,54 @@ class Naves:
                 # crear una sublista con los elementos desde el minimo hasta el final
                 return lista_naves[i:]
             i += 1
-    
-        
 
-naves = Naves.lista
-naves_ordenadas_nombre = Naves.mergesort(naves, "nombre")
-naves_ordenadas_largo = Naves.mergesort(naves_ordenadas_nombre, "largo")
-naves_ordenadas_tripulacion = Naves.mergesort(naves_ordenadas_nombre, "tripulacion")
-naves_ordenadas_pasajeros = Naves.mergesort(naves_ordenadas_nombre, "pasajeros")
+    @staticmethod
+    def extremos(lista_naves, categoria):
+        lista_naves = Naves.mergesort(lista_naves, categoria)
+        minimo = lista_naves[0]
+        maximo = lista_naves[-1]
+        return minimo, maximo
 
-print("Ordenadas por nombre:")
-Naves.mostrar_naves(naves_ordenadas_nombre)
+def main():
+    naves = Naves.lista
+    naves_ordenadas_nombre = Naves.mergesort(naves, "nombre")
+    naves_ordenadas_largo = Naves.mergesort(naves_ordenadas_nombre, "largo")
+    naves_ordenadas_tripulacion = Naves.mergesort(naves_ordenadas_nombre, "tripulacion")
+    naves_ordenadas_pasajeros = Naves.mergesort(naves_ordenadas_nombre, "pasajeros")
 
-print("\nOrdenadas por largo:")
-Naves.mostrar_naves(naves_ordenadas_largo)
+    print("Ordenadas por nombre:")
+    Naves.mostrar_naves(naves_ordenadas_nombre)
 
-print("\nOrdenadas por tripulación:")
-Naves.mostrar_naves(naves_ordenadas_tripulacion)
+    print("\nOrdenadas por largo:")
+    Naves.mostrar_naves(naves_ordenadas_largo)
+
+    print("\nOrdenadas por tripulación:")
+    Naves.mostrar_naves(naves_ordenadas_tripulacion)
 
 
-print("\nOrdenadas por pasajeros:")
-Naves.mostrar_naves(naves_ordenadas_pasajeros)
+    print("\nOrdenadas por pasajeros:")
+    Naves.mostrar_naves(naves_ordenadas_pasajeros)
 
-print("\nInformación del Halcón Milenario y la Estrella de la Muerte:")
-Naves.mostrar_nave("Millennium Falcon")
-Naves.mostrar_nave("Death Star")
+    print("\nInformación del Halcón Milenario y la Estrella de la Muerte:")
+    Naves.mostrar_nave("Millennium Falcon")
+    Naves.mostrar_nave("Death Star")
 
-print("\nLas cinco naves con mayor cantidad de pasajeros:")
-Naves.mostrar_naves(Naves.mayores(naves, 5, "pasajeros"))
+    print("\nLas cinco naves con mayor cantidad de pasajeros:")
+    Naves.mostrar_naves(Naves.mayores(naves, 5, "pasajeros"))
 
-print("\nLa nave que requiere mayor cantidad de tripulación:")
-Naves.mostrar_naves(Naves.mayores(naves, 1, "tripulacion"))
+    print("\nLa nave que requiere mayor cantidad de tripulación:")
+    Naves.mostrar_naves(Naves.mayores(naves, 1, "tripulacion"))
 
-print("\nNaves que comienzan con AT:")
-Naves.mostrar_naves(Naves.filtro(naves, "AT"))
+    print("\nNaves que comienzan con AT:")
+    Naves.mostrar_naves(Naves.filtro(naves, "AT"))
 
-print("\nNaves que pueden llevar seis o más pasajeros:")
-Naves.mostrar_naves(Naves.minimos(naves, 6, "pasajeros"))
+    print("\nNaves que pueden llevar seis o más pasajeros:")
+    Naves.mostrar_naves(Naves.minimos(naves, 6, "pasajeros"))
+
+    print("\nInformación de la nave más pequeña y la más grande:")
+    minimo, maximo = Naves.extremos(naves, "largo")
+    print(f"Nave más pequeña: {minimo}")
+    print(f"Nave más grande: {maximo}")
+
+if __name__ == "__main__":
+    main()
